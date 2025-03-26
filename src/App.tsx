@@ -11,7 +11,7 @@ const App: React.FC = () => {
   const [currentPage, setCurrentPage] = useState<number>(1);
 
   useEffect(() => {
-    const fakeUsers = generateFakeUsers(1000).sort((a, b) =>
+    const fakeUsers = generateFakeUsers(100).sort((a, b) =>
       a.name.localeCompare(b.name)
     );
     setUsers(fakeUsers);
