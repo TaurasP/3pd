@@ -8,9 +8,10 @@ const App: React.FC = () => {
   const [searchQuery, setSearchQuery] = useState<string>("");
   const [filteredUsers, setFilteredUsers] = useState<User[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(true);
+  const [currentPage, setCurrentPage] = useState<number>(1);
 
   useEffect(() => {
-    const fakeUsers = generateFakeUsers(100).sort((a, b) =>
+    const fakeUsers = generateFakeUsers(1000).sort((a, b) =>
       a.name.localeCompare(b.name)
     );
     setUsers(fakeUsers);
@@ -23,7 +24,7 @@ const App: React.FC = () => {
       user.name.toLowerCase().includes(searchQuery.toLowerCase())
     );
     setFilteredUsers(results);
-    setSearchQuery("");
+    setCurrentPage(1);
   }, [users, searchQuery]);
 
   return (
@@ -34,7 +35,15 @@ const App: React.FC = () => {
         setSearchQuery={setSearchQuery}
         onSearch={handleSearch}
       />
-      {isLoading ? <p>Loading...</p> : <UserList users={filteredUsers} />}
+      {isLoading ? (
+        <p>Loading...</p>
+      ) : (
+        <UserList
+          users={filteredUsers}
+          currentPage={currentPage}
+          setCurrentPage={setCurrentPage}
+        />
+      )}
     </div>
   );
 };

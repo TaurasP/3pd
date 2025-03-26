@@ -1,13 +1,18 @@
-import React, { useState, useMemo } from "react";
+import React, { useMemo } from "react";
 import UserCard from "./UserCard";
 import { User } from "./User";
 
 interface UserListProps {
   users: User[];
+  currentPage: number;
+  setCurrentPage: React.Dispatch<React.SetStateAction<number>>;
 }
 
-const UserList: React.FC<UserListProps> = ({ users }) => {
-  const [currentPage, setCurrentPage] = useState<number>(1);
+const UserList: React.FC<UserListProps> = ({
+  users,
+  currentPage,
+  setCurrentPage,
+}) => {
   const usersPerPage = 9;
 
   const paginatedUsers = useMemo(() => {
